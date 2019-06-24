@@ -1,0 +1,331 @@
+{% extends "page.html" %}
+
+{% block title %}{{ park['fullName'] }} | Park Finder{% endblock title %}
+
+{% block content %}
+
+<div style="text-align:center;padding-top:10px">
+  <a target="_blank" href='{{ park['url'] }}' class='link-black'><h3>{{ park['fullName'] }}
+    <br/><small style="color:gray">{{ park['designation'] }} | {{ park['states'] }}</small></h3></a>
+</div>
+
+<ul class="nav nav-pills nav-fill">
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'overview' %}active{% endif %}"
+    href="/parks/{{ code }}/overview">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'visitor-centers' %}active{% endif %}"
+    href="/parks/{{ code }}/visitor-centers">Visitor Centers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'campgrounds' %}active{% endif %}"
+    href="/parks/{{ code }}/campgrounds">Campgrounds</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'alerts' %}active{% endif %}"
+    href="/parks/{{ code }}/alerts">Alerts</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'articles' %}active{% endif %}"
+    href="/parks/{{ code }}/articles">Articles</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'events' %}active{% endif %}"
+    href="/parks/{{ code }}/events">Events</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'news-releases' %}active{% endif %}"
+    href="/parks/{{ code }}/news-releases">News Releases</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if section == 'education' %}active{% endif %}"
+    href="/parks/{{ code }}/education">Education</a>
+  </li>
+</ul>
+
+{% if section == 'overview' %}
+<h4>Overview</h4>
+<p>{{ park['description'] }}</p>
+
+<h4>Directions</h4>
+<p>{{ park['directionsInfo'] }} More information can be found <a target="_blank" href='{{ park['directionsUrl'] }}'>here</a>.
+
+<h4>Weather</h4>
+<p>{{ park['weatherInfo'] }}</p>
+{% endif %}
+
+{% if section == 'visitor-centers' %}
+<h4>Visitor Centers</h4>
+{% if visitorcenters != [] %}
+{% for vc in visitorcenters %}
+<a target="_blank" href='{{ vc['url']}}'><h6>{{ vc['name']}}</h6></a>
+<p>{{ vc['description'] }}</p>
+{% endfor %}
+{% else %}
+<p>No visitor centers available.</p>
+{% endif %}
+{% endif %}
+
+{% if section == 'campgrounds' %}
+  <h4>Campgrounds</h4>
+    {% if campgrounds != [] %}
+      {% for cg in campgrounds %}
+        <h6><b>{{ cg['name']}}</b></h6>
+        <p>{{ cg['description'] }} {{ cg['directionsOverview'] }}</p>
+        <div class="parent">
+          <div class="split-30">
+            <p><i>Campsites</i><br/></p>
+            <table class='table table-sm'>
+              <tr>
+                  <td class='col-sm-3'>Total Sites</td>
+                  <td class='col-sm-2'>{{ cg['campsites']['totalsites'] }}</td>
+              </tr>
+              <tr>
+                  <td>Tent Only</td>
+                  <td>{{ cg['campsites']['tentonly'] }}</td>
+              </tr>
+              <tr>
+                  <td>RV Only</td>
+                  <td>{{ cg['campsites']['rvonly'] }}</td>
+              </tr>
+              <tr>
+                  <td>Group</td>
+                  <td>{{ cg['campsites']['group'] }}</td>
+              </tr>
+              <tr>
+                  <td>Horse</td>
+                  <td>{{ cg['campsites']['horse'] }}</td>
+              </tr>
+              <tr>
+                  <td>Electrical Hookups</td>
+                  <td>{{ cg['campsites']['electricalhookups'] }}</td>
+              </tr>
+            </table>
+            <br/>
+            <p><i>Amenities</i><br/></p>
+            <table class='table table-sm'>
+              <tr>
+                  <td class='col-sm-3'>Trash/Recycling Collection</td>
+                  <td class='col-sm-3'>{{ cg['amenities']['trashrecyclingcollection'] }}</td>
+              </tr>
+              <tr>
+                  <td>Toilets</td>
+                  <td>
+                    {% for i in range((cg['amenities']['toilets'])|count-1) %}
+                    {{ cg['amenities']['toilets'][i] }},
+                    {% endfor %}
+                    {{ cg['amenities']['toilets'][(cg['accessibility']['toilets'])|count-1] }}
+                  </td>
+              </tr>
+              <tr>
+                  <td>Internet</td>
+                  <td>{{ cg['amenities']['internetconnectivity'] }}</td>
+              </tr>
+              <tr>
+                  <td>Showers</td>
+                  <td>
+                    {% for i in range((cg['amenities']['showers'])|count-1) %}
+                    {{ cg['amenities']['showers'][i] }},
+                    {% endfor %}
+                    {{ cg['amenities']['showers'][(cg['accessibility']['showers'])|count-1] }}
+                  </td>
+              </tr>
+              <tr>
+                  <td>Cellphone Service</td>
+                  <td>{{ cg['amenities']['cellphonereception'] }}</td>
+              </tr>
+              <tr>
+                  <td>Laundry</td>
+                  <td>{{ cg['amenities']['laundry'] }}</td>
+              </tr>
+              <tr>
+                  <td>Amphitheater</td>
+                  <td>{{ cg['amenities']['amphitheater'] }}</td>
+              </tr>
+              <tr>
+                  <td>Ampitheater</td>
+                  <td>{{ cg['amenities']['ampitheater'] }}</td>
+              </tr>
+              <tr>
+                  <td>Dumpstation</td>
+                  <td>{{ cg['amenities']['dumpstation'] }}</td>
+              </tr>
+              <tr>
+                  <td>Camp Store</td>
+                  <td>{{ cg['amenities']['campstore'] }}</td>
+              </tr>
+              <tr>
+                  <td>Potable Water</td>
+                  <td>
+                    {% for i in range((cg['amenities']['potablewater'])|count-1) %}
+                    {{ cg['amenities']['potablewater'][i] }},
+                    {% endfor %}
+                    {{ cg['amenities']['potablewater'][(cg['accessibility']['potablewater'])|count-1] }}
+                  </td>
+              </tr>
+              <tr>
+                  <td>Ice for Sale</td>
+                  <td>{{ cg['amenities']['iceforsale'] }}</td>
+              </tr>
+              <tr>
+                  <td>Firewood for Sale</td>
+                  <td>{{ cg['amenities']['firewoodforsale'] }}</td>
+              </tr>
+              <tr>
+                  <td>Ice for sale</td>
+                  <td>{{ cg['amenities']['iceforsale'] }}</td>
+              </tr>
+              <tr>
+                  <td>Food Storage Lockers</td>
+                  <td>{{ cg['amenities']['foodstoragelockers'] }}</td>
+              </tr>
+              <tr>
+                  <td>Staff on Site</td>
+                  <td>{{ cg['amenities']['stafforvolunteerhostonsite'] }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="split-70 flex">
+            <p><i>Accessibility</i><br/>
+              <b>ADA Information: </b>{{ cg['accessibility']['adainfo'] }}<br/>
+              <b>Wheelchair Access: </b>{{ cg['accessibility']['wheelchairaccess'] }}<br/>
+              <b>Firestove Policy: </b>{{ cg['accessibility']['firestovepolicy'] }}<br/>
+              <b>Internet: </b>{{ cg['accessibility']['internetinfo'] }}<br/>
+              <b>Cellphone Service: </b>{{ cg['accessibility']['cellphoneinfo'] }}<br/>
+              <b>RV Allowed: </b>{{ cg['accessibility']['rvallowed'] }}<br/>
+              <b>RV Max Length: </b>{{ cg['accessibility']['rvmaxlength'] }}<br/>
+              <b>RV Information: </b>{{ cg['accessibility']['rvinfo'] }}<br/>
+              <b>Trailer Allowed: </b>{{ cg['accessibility']['trailerallowed'] }}<br/>
+              <b>Trailer Max Length: </b>{{ cg['accessibility']['trailermaxlength'] }}<br/>
+              <b>Access Roads: </b>
+                {% for i in range((cg['accessibility']['accessroads'])|count-1) %}
+                {{ cg['accessibility']['accessroads'][i] }},
+                {% endfor %}
+                {{ cg['accessibility']['accessroads'][(cg['accessibility']['accessroads'])|count-1] }}
+                <br/>
+              <b>Classifications: </b>
+                {% for i in range((cg['accessibility']['classifications'])|count-1) %}
+                {{ cg['accessibility']['classifications'][i] }},
+                {% endfor %}
+                {{ cg['accessibility']['classifications'][(cg['accessibility']['classifications'])|count-1] }}
+                <br/>
+              <b>Additional Information: </b>{{ cg['accessibility']['additionalinfo'] }}<br/><br/>
+              <b>Directions: </b>{{ cg['directionsoverview'] }}<br/>
+              <b>Regulations: </b>{{ cg['regulationsoverview'] }} View site policies <a target='_blank' href='{{ cg['regulationsurl'] }}'>here</a>.<br/>
+            </p>
+        </div>
+      </div>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <p>No campgrounds available.</p>
+  {% endif %}
+{% endif %}
+
+{% if section == 'alerts' %}
+  <h4>Alerts</h4>
+  {% if alerts != [] %}
+    {% for a in alerts %}
+      <a target='_blank' href='{{ a['url'] }}'><h6>{{ a['title'] }}</h6></a>
+      <p>{{ a['description'] }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No ongoing alerts.</p>
+  {% endif %}
+{% endif %}
+
+{% if section == 'articles' %}
+  <h4>Articles</h4>
+  {% if articles != [] %}
+    <div class="row">
+      <div class="col-sm-6">
+      {% for i in range(0, articles|count) %}
+        {% if i % 2 == 0 %}
+        <a target='_blank' href='{{ articles[i]['url'] }}'><h6>{{ articles[i]['title'] }}</h6></a>
+        {% endif %}
+      {% endfor %}
+      </div>
+      <div class="col-sm-6">
+      {% for i in range(0, articles|count) %}
+        {% if i % 2 == 1 %}
+        <a target='_blank' href='{{ articles[i]['url'] }}'><h6>{{ articles[i]['title'] }}</h6></a>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <p>No articles available.</p>
+  {% endif %}
+{% endif %}
+
+{% if section == 'events' %}
+  <h4>Events</h4>
+  {% if events != [] %}
+  {% for e in events %}
+    <h6>
+      <a target='_blank' href='{{ e['url'] }}'>{{ e['title'] }}</a>
+      &nbsp;&nbsp;&nbsp;
+        {{ e['location'] }} |
+          {% if e['datestart'] == e['dateend'] %}
+            {{ e['datestart'] }},
+          {% else %}
+            {{ e['datestart'] }}-{{ e['dateend'] }},
+          {% endif %} {{ e['times'][0]['timestart'] }}-{{ e['times'][0]['timeend']}}
+    </h6>
+    <p>
+      {{ e['description'] }}
+    </p>
+  {% endfor %}
+{% else %}
+  <p>No events available.</p>
+  {% endif %}
+{% endif %}
+
+{% if section == 'news-releases' %}
+  <h4>News Releases</h4>
+  {% if newsreleases != [] %}
+    {% for n in newsreleases %}
+      <a target='_blank' href='{{ n['url'] }}'><h6>{{ n['title'] }}</h6></a>
+      <p>{{ n['abstract'] }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No news releases available.</p>
+  {% endif %}
+{% endif %}
+
+{% if section == 'education' %}
+  <h4>Lesson Plans</h4>
+  {% if lessonplans != [] %}
+    {% for l in lessonplans %}
+      <a target='_blank' href='{{ l['url'] }}'><h6>{{ l['title'] }}</h6></a>
+      <p><b>Grade level: </b>{{ l['gradelevel'] }}<br/>
+      <b>Duration: </b>{{ l['duration'] }}<br/>
+      {{ l['questionobjective'] }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No lesson plans available.</p>
+  {% endif %}
+
+<h4>People</h4>
+{% if people != [] %}
+  {% for p in people %}
+    <a target='_blank' href='{{ p['url'] }}'><h6>{{ p['title'] }}</h6></a>
+    <p>{{ p['listingdescription'] }}</p>
+  {% endfor %}
+{% else %}
+  <p>No people available.</p>
+{% endif %}
+
+<h4>Places</h4>
+{% if places != [] %}
+  {% for p in places %}
+    <a target='_blank' href='{{ p['url'] }}'><h6>{{ p['title'] }}</h6></a>
+    <p>{{ p['listingdescription'] }}</p>
+  {% endfor %}
+{% else %}
+  <p>No places available.</p>
+  {% endif %}
+{% endif %}
+
+{% endblock content %}

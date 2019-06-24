@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block nav %}
+<nav class="navbar navbar-dark bg-gradient justify-content-between">
+
+      <div class="container">
+        <a href="/" class="navbar-brand">PARK FINDER</a>
+        <form action='/search' method='GET' class="form-inline">
+        <input class="form-control form-control-sm search-sm col-xs-6" type="search" placeholder="Search"
+          name="query" value='{{ query }}' size="40">
+        </form>
+      </div>
+
+</nav>
+{% endblock nav %}

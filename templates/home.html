@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block bodyclass %}home bg-gradient{% endblock bodyclass %}
+
+{% block content %}
+
+<h1 class="text-center title">PARK FINDER</h1>
+<p class="text-center subtitle"><b>POWERED BY THE NATIONAL PARK SERVICE</b></p><br><br>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      <form action="/search" method="GET">
+        <div class="form-group">
+          <input type="text"  class="form-control form-control-lg search"
+          placeholder="Search for parks, monuments, and more!" name="query" autofocus></input>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+
+
+{% endblock content %}

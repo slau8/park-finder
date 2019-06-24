@@ -1,0 +1,160 @@
+/* Maintains the footer */
+html {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #333333;
+  /* Fixes the footer */
+  min-height: 100%;
+  height: stretch;
+  position: relative;
+  padding-bottom: 10rem;
+}
+
+h1, .navbar-brand {
+  font-family: 'Fugaz One', cursive;
+  text-transform: uppercase;
+  color: white;
+}
+
+h4 {
+  padding-top: 10px;
+}
+
+h6 {
+  padding-top: 10px;
+}
+
+.navbar {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+/* Dotted link */
+.link-dotted, .link-dotted:hover, .link-dotted:active, .link-dotted:visited {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  color: #458cc1;
+}
+
+.title {
+  text-shadow: 1px 1px 2px #333333;
+  font-size: 60px;
+  margin-bottom: 0px;
+}
+
+.subtitle {
+  letter-spacing: 1px;
+}
+
+.link-black, .link-black:hover, .link-black:active, .link-black:visited {
+   color: black;
+   text-decoration: none;
+}
+
+a, a:hover, a:active, a:visited {
+   color: #458cc1;
+   text-decoration: none;
+}
+
+.card {
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active .navpills .navlink{
+  background-color: #458cc1;
+}
+
+.nav>li>a.active {
+   background-color: #458cc1!important;
+}
+
+.nav-link:not(.active) {
+  color: #458cc1;
+}
+
+.nav-pills {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.split-30 {
+  width: 30%;
+}
+
+.split-70 {
+  width: 70%;
+}
+
+.parent {
+  display: flex;
+  position: relative;
+}
+
+.parent-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex {
+  flex: 1;
+  padding-left: 5%;
+}
+
+.left {
+  float: left;
+}
+
+.home {
+  color: white;
+  padding-top: 100px;
+}
+
+.search {
+  border-radius: 24px;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+.search-sm {
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.bg-gradient {
+  background: #2b5876;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.footer {
+  position: absolute;
+  /* position: fixed; */
+  bottom: 0;
+  padding-top: 1rem;
+  text-align: center;
+  color: white;
+  background-color: #333333;
+  width: 100%;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

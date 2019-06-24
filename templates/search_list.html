@@ -1,0 +1,49 @@
+{% extends "page.html" %}
+
+{% block title %}Search | Park Finder{% endblock title %}
+
+{% block content %}
+
+{% if num_results != 0 %}
+<div class="card card-body bg-light">
+  <form action="/search" method="GET">
+  <input type="hidden" name="query" value="{{ query }}"></input>
+  <div class="row">
+    <div class="col-sm-2 center-xy">FILTER SEARCH</div>
+    <div class="col-sm-4" style="padding-top:15px">
+      <div class="form-group">
+        <select class="form-control" id="state" name="state">
+          <option value="ALL STATES" {% if state == "ALL STATES" %}selected{% endif %}>
+            ALL STATES</option>
+          {% for s in STATES|dictsort %}
+          <option value="{{ s[0] }}" {% if state == s[0] %}selected{% endif %}>{{ s[0] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-4" style="padding-top:15px">
+      <div class="form-group">
+        <select class="form-control" id="state" name="designation">
+          <option value="ALL DESIGNATIONS" {% if designation == "ALL DESIGNATIONS" %}selected{% endif %}>ALL DESIGNATIONS</option>
+          {% for d in DESIGNATIONS|sort %}
+          <option value="{{ d }}" {% if designation == d %}selected{% endif %}>{{ d }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2" style="padding-top:15px">
+      <input type="submit" class="btn btn-block btn-info" value="APPLY">
+    </div>
+  </div>
+  </form>
+</div>
+{% for park in results %}
+<a href='/parks/{{ park['parkCode'] }}/overview' class='link-black'><h4>{{ park['fullName'] }}
+  &nbsp;&nbsp;&nbsp;<small style="color:gray">{{ park['designation'] }} | {{ park['states'] }}</small></h4></a>
+<hr>
+{% endfor %}
+{% else %}
+<p>No search results found.</p>
+{% endif %}
+
+{% endblock content %}
