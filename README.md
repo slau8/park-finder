@@ -4,6 +4,6 @@ Park Finder, powered by the National Park Service, is a search tool to discover 
 
 This is a Python/Flask web application featuring a streamlined Bootstrap user interface. The website can be found at [http://shanlau.pythonanywhere.com](http://shanlau.pythonanywhere.com).
 
-## Tech Stack
+### Tech Stack
 * Flask
 * [National Park Service API](https://www.nps.gov/subjects/developer/api-documentation.htm)
